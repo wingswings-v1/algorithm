@@ -12,9 +12,20 @@ Write your code in this editor and press "Run" button to compile and execute it.
 //  키포인트: 순서가 다르다는 것 / n!의 경우의 수를 갖는다.
 // 방법 1 for문 사용하기 / 방법 2 재귀함수 사용하기 / 방법 3 재귀함수와 bit 연산자 이용하기 
 #define N 3
+
 char array[N] = {'A','B','C'}; // ABC, ACB, BAC, BCA, CAB, CBA 
 void permutation_v1(){
+    for(int i=0; i<N; i++){
+        for(int j=0; j<N; j++){
+            if(i == j) continue;
+            for(int k=0; k<N; k++){
+                if(i == k || j == k) continue;
+                    printf("{%c%c%c}\n", array[i], array[j], array[k]);
+            }
+        }
+    }
 }
+
 char visit[3] = {-1,};
 int visit_count = 0;
 int chk_visit(char visit[3], int index){
@@ -23,6 +34,7 @@ int chk_visit(char visit[3], int index){
         }
         return 1;
 }
+
 void permutation_v2(char visit[3], int visit_count){
     if(visit_count == (N+1)){
         printf("{");
@@ -47,13 +59,16 @@ void permutation_v3(){
 
 int main()
 {
-    //permutation_v1();
-    visit_count = 1;
+    permutation_v1();
+    
+    /*visit_count = 1;
     for(int i=0; i<N; i++){
         visit[visit_count] = i;
         visit_count++;
         permutation_v2(visit, visit_count);
         visit_count--;
-    }
+    }*/
+
+    permutation_v3();
     return 0;
 }
