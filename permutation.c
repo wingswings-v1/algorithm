@@ -53,13 +53,29 @@ void permutation_v2(char visit[3], int visit_count){
     }
 }
 
-void permutation_v3(){
-    
+int cnt=0;
+char temp_array[N];
+
+void permutation_v3(int select, int visit_flag){
+    if(cnt == N){
+        printf("{");
+        for(int j=0; j<N; j++){
+            printf("%c", temp_array[j]);
+        }printf("}\n");
+        return; 
+    }
+    for(int i=0; i<N; i++){
+        if(select == i) continue;
+        if(((1 << i) & visit_flag)) continue;
+        temp_array[cnt++] = array[i];
+        permutation_v3(i, visit_flag | 1 << i);
+        cnt--;
+    }
 }
 
 int main()
 {
-    permutation_v1();
+    //permutation_v1();
     
     /*visit_count = 1;
     for(int i=0; i<N; i++){
@@ -69,6 +85,10 @@ int main()
         visit_count--;
     }*/
 
-    permutation_v3();
+    for(int i=0; i<N; i++){
+        temp_array[cnt++] = array[i];
+        permutation_v3(i, 1 << i);
+        cnt--;
+    }
     return 0;
 }
